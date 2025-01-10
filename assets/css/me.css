@@ -1,7 +1,7 @@
 /*
 Template Name: Me
 Author: Tiange (Alex) Cui
-Description: This is Tiange Cui, or Alex. Nice to meet you here.
+Description: Hi, this is Tiange (Alex) Cui. Nice to meet you here.
 Version: 0.2.2
 */
 /* -- CSS Reset -- */
@@ -104,8 +104,8 @@ body.page-template-page-fullsingle-me {
   background-color: #141414;
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
-  font-size: 45px;
-  line-height: 60px;
+  font-size: 30px;
+  line-height: 50px;
   letter-spacing: -0.5px;
   color: #999999;
   background-image: url("../../images/background.jpg");
@@ -164,6 +164,38 @@ body.page-template-page-fullsingle-me {
     max-width: 165px;
     height: auto; }
 
+.enter-button {
+  display: inline-block;
+  width: 200px; /* Fixed width for the button */
+  padding: 5px 0; /* Vertically padded */
+  font-size: 28px;
+  font-weight: bold;
+  color: #FFFFFF; /* White text */
+  background: transparent; /* Transparent background */
+  text-align: center;
+  text-decoration: none;
+  border: 2px solid #FFFFFF; /* white border */
+  border-radius: 10px;
+  box-shadow: 5px 5px #c9c7b3; /* 3D shadow effect */
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  margin-top: 20px; /* Adds space between the text and button */
+  position: relative;
+  left: 33%; /* Position the button 1/3 of the screen width */
+}
+
+.enter-button:hover {
+  background: rgba(128, 128, 128, 0.2); /* Slight grey overlay on hover */
+  box-shadow: 0 2px #333; /* Reduced shadow on hover */
+  transform: translateY(-50%) translateY(2px); /* Move down slightly on hover */
+}
+
+.enter-button:active {
+  background: rgba(128, 128, 128, 0.4); /* Darker grey when clicked */
+  box-shadow: 0 1px #111; /* Further reduced shadow */
+  transform: translateY(-50%) translateY(4px); /* Simulate button press */
+}
+
 .bio {
   -webkit-box-flex: 1;
   -webkit-flex: 1 1 auto;
@@ -181,7 +213,9 @@ body.page-template-page-fullsingle-me {
   -webkit-animation: fadein 4s;
           animation: fadein 4s;
   letter-spacing: -1px;
-  max-width: 66%; }
+  max-width: 45%;
+  text-align: relative;
+  margin-bottom: 20px; }
   @media (max-width: 800px) {
     .bio {
       max-width: none; } }
