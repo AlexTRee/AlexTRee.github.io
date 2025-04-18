@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Askle: Your AI Research Agent for Biomedical Discovery</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      padding: 40px;
+      max-width: 800px;
+      margin: auto;
+      background: #fff;
+      color: #333;
+    }
+    h1, h2, h3 {
+      color: #222;
+    }
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+    pre {
+      background: #f4f4f4;
+      padding: 10px;
+      overflow-x: auto;
+      border-radius: 6px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background: #eee;
+    }
+  </style>
+
+  <!-- Prism CSS for styling -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet" />
+
+  <!-- Prism JS for syntax highlighting -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <!-- Optional: Language support (e.g., Python, JSON) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+
+</head>
+<body>
+  <h1>🧠 Askle: Your AI Research Agent for Biomedical Discovery</h1>
+  <p><strong>How Google's Gemini empowers automated Q&A for biomedical professional</strong></p>
+  <p><em>By Tiange (Alex) Cui</em></p>
+
+  <h2>🚀 Why Askle?</h2>
+  <p>In the fast-paced world of life sciences, keeping up with the ever-expanding universe of research literature is a constant challenge. PubMed alone publishes thousands of new articles daily.</p>
+  <p><strong>What if you could ask a research question and instantly get a grounded, referenced summary</strong> &mdash; synthesizing the <em>latest</em> studies, <em>guidelines</em>, and <em>expert consensus</em>?</p>
+  <p>That’s what <strong>Askle</strong> delivers. Built on <strong>Google’s Gemini large language model</strong>, Askle is a powerful, automated AI agent designed to help medical professionals and researchers get <strong>trustworthy, up-to-date answers</strong>, without combing through papers one by one.</p>
+  <p><img src="https://drive.usercontent.google.com/download?id=1v8LGWpLYw6c5Tyg-MJtdRjhw6gKDidxv" alt="askle"></p>
+  
+
+  <h2>🔍 How Askle Works</h2>
+  <p>Askle is built around four modular phases:</p>
+  <ol>
+    <li><strong>Query Understanding & Retrieval</strong></li>
+    <li><strong>Data Acquisition & Storage</strong></li>
+    <li><strong>RAG Indexing & Embedding</strong></li>
+    <li><strong>Answer Synthesis & Referencing</strong></li>
+  </ol>
+  <h3>🛠️ Pipeline</h3>
+  <p><img src="https://drive.usercontent.google.com/download?id=1rZaaMGwkuj717Ee-25G2ypZH575GYvly" alt="askle"></p>
+
+
+  <h3>📚 Phase 1: Understand the Question</h3>
+  <p>Askle uses <strong>Few-shot prompting</strong> and <strong>Structured Output (JSON)</strong> from Gemini to transform user questions into powerful search queries:</p>
+  <pre><code class="language-python">prompt = f"""You are an expert at extracting relevant keywords from text for search queries.
+    Your output should be a JSON object with a single key "keywords" and its value as a list of strings.
+    Here are a few examples:
+
+    User Question: "What are the latest treatments for rheumatoid arthritis?"
+    {{"keywords": ["latest treatments", "rheumatoid arthritis"]}}
+    User Question: "Find me research articles on the impact of exercise on cognitive function in older adults."
+    {{"keywords": ["impact of exercise", "cognitive function", "older adults"]}}
+    User Question: "Tell me about the genetic basis of Alzheimer's disease."
+    {{"keywords": ["genetic basis", "Alzheimer's disease"]}}
+    User Question: "{sanitized_question}"
+    {{
+      "keywords":"""
+        response = client.models.generate_content(
+        model='gemini-2.0-flash',
+        contents= prompt,
+        config={'response_mime_type': 'application/json'}
+    )</code></pre>
+
+  <h3>📚 Phase 2: Retrieve Literature</h3>
+  <p>Askle searches <strong>PubMed</strong> and downloads both <strong>journal abstracts</strong> and <strong>guidelines</strong>, utilizing <strong>Function Calling</strong> and <strong>Document Understanding</strong>.</p>
+  <pre><code class="language-python"> conn = sqlite3.connect(DATABASE_NAME)
+  create_papers_table(conn)
+
+  for i, paper in enumerate(most_recent_papers_data):
+      download_paper(paper, conn)
+
+  for i, paper in enumerate(most_relevant_papers_data):
+      download_paper(paper, conn)</code></pre>
+
+  <h3>📚 Phase 3: Vector Embedding & RAG</h3>
+  <p>Gemini's embedding model is used with ChromaDB for vector storage and retrieval:</p>
+  <pre><code class="language-python">rag_collection = process_papers_for_rag_persistent(
+        client=chroma_client,
+        download_dir=RAG_DIR,
+        collection_name=CHROMA_COLLECTION)</code></pre>
+
+  <h3>📚 Phase 4: Final Answer Generation</h3>
+  <p>All retrieved information is compiled into a long-context prompt for Gemini, producing a final answer with references:</p>
+  <pre><code class="language-python">response = client.models.generate_content(
+        model=GENERATIVE_MODEL,
+        config=low_temp_config,
+        contents=synthesis_prompt)</code></pre>
+
+  <h2>🔍 The GenAI Concepts covered in this project</h2>
+  <p><b>Google's 5-Day Gen AI Intensive Course</b> covered a wide range of key concepts in depth for GenAI development. I was able to apply several of these directly while building Askle. Below is a breakdown of the topics I incorporated into the project, as well as those not yet explored.</p>
+  <table>
+    <tr><th>Concept</th><th>Used in Askle?</th><th>How?</th></tr>
+    <tr><td>Structured Output (JSON)</td><td>✅</td><td>Extracted keywords for search</td></tr>
+    <tr><td>Few-shot Prompting</td><td>✅</td><td>Clarified user queries</td></tr>
+    <tr><td>Document Understanding</td><td>✅</td><td>Parsed PubMed abstracts & PDFs</td></tr>
+    <tr><td>Function Calling</td><td>✅</td><td>Downloaded literature from URLs</td></tr>
+    <tr><td>Long Context Window</td><td>✅</td><td>Summarized abstracts + context</td></tr>
+    <tr><td>Embeddings</td><td>✅</td><td>Chunked text + Gemini vector model</td></tr>
+    <tr><td>Vector Search/Store (RAG)</td><td>✅</td><td>ChromaDB used for retrieval</td></tr>
+    <tr><td>Grounding</td><td>✅</td><td>Source tags replaced with numbered references</td></tr>
+    <tr><td>GenAI Evaluation</td><td>✅</td><td>Ratings recorded (1-5 + hallucination check)</td></tr>
+    <tr><td>Agents</td><td>⏳ In progress</td><td>Framework supports modular agent design</td></tr>
+    <tr><td>Image/Video/Audio Understanding</td><td>❌</td><td>Not yet implemented</td></tr>
+    <tr><td>MLOps with GenAI</td><td>⚙️ Planned</td><td>Modular pipeline supports future CI/CD</td></tr>
+  </table>
+
+  <h2>⚠️ Limitations & What's Next</h2>
+  <ul>
+    <li><strong>API Rate Limits:</strong> Scaling may require better batching or quota management.</li>
+    <li><strong>No PMC full-text:</strong> Limited access to non-open papers may affect context quality.</li>
+    <li><strong>Grounding edge cases:</strong> Some citation replacements may fail if metadata isn't matched.</li>
+  </ul>
+  <p><strong>Future Potential:</strong></p>
+  <ul>
+    <li>Add <em>image/video understanding</em> for radiology or pathology workflows</li>
+    <li>Apply <em>Agentic AI</em> to chain multiple intelligent tools</li>
+    <li>Integrate <em>MLOps pipelines</em> for live deployment, retraining, and monitoring</li>
+  </ul>
+
+  <h2>🎉 Why Askle Is a Game-Changer</h2>
+  <ul>
+    <li>Saves <strong>hours</strong> of manual research</li>
+    <li>Provides <strong>instant, grounded answers</strong></li>
+    <li>Scales affordably with <strong>no external API costs</strong></li>
+    <li>Highly <strong>modular</strong> and <strong>developer-friendly</strong></li>
+  </ul>
+
+  <p>Askle is your <strong>AI co-pilot for research discovery</strong>. Powered by Gemini, built for clarity.</p>
+
+  <p><strong>Interested the code?</strong> Stay tuned for the open-source release on my <a href="https://github.com/AlexTRee/" target="_blank">GitHub</a>! 🚀</p>
+  <p>For questions and suggestions, please feel free to connect me on <a href="https://www.linkedin.com/in/tiangecui/" target="_blank">LinkedIn</a></p>
+</body>
+</html>
